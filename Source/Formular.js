@@ -216,7 +216,7 @@ var Formular = new Class({
     });
   },
 
-  enableField : function() {
+  enableField : function(field) {
     field.removeClass(this.options.disabledFieldClassName);
     field.set({
       'readonly' : 0
