@@ -95,7 +95,7 @@ var Formular = new Class({
     options.evaluateOnSubmit = this.options.evaluateOnSubmit;
     options.evaluateFieldsOnBlur = this.options.evaluateFieldsOnBlur;
     options.evaluateFieldsOnChange = this.options.evaluateFieldsOnChange;
-    this.validator = new Form.Validator(form,options);
+    this.validator = new Form.Validator(this.getForm(),options);
   },
 
   setupEvents : function() {
