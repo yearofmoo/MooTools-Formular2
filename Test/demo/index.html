@@ -1,0 +1,134 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+<link rel="stylesheet" href="../../Source/Formular.css" type="text/css" media="screen" charset="utf-8">
+<style type="text/css" media="screen">
+html,body {
+  font-family:Arial;
+  font-size:15px;
+}
+.invalid-field {
+  border-color:maroon!important;
+  outline:1px solid maroon!important;
+  background:rgb(200,120,120);
+  color:white;
+}
+* {
+  margin:0;
+  padding:0;
+}
+.disabled {
+  color:#aaa;
+  background:#ddd;
+  border-color:#aaa!important;
+  box-shadow:0 0 5px #aaa;
+}
+body,html {
+  padding:20px;
+}
+ul,ol,li {
+  list-style:none;
+}
+li {
+  padding:20px;
+  border-bottom:1px solid #ddd;
+}
+label {
+  margin-bottom:5px;
+  display:block;
+}
+input[type="text"] {
+  padding:5px;
+  border:1px solid #ddd;
+  width:500px;
+}
+input:focus,
+input:hover {
+  border-color:orange;
+  outline:0;
+}
+form ol {
+  margin-bottom:1em;
+}
+</style>
+</head> 
+
+<body id="" class=""> 
+  <div id="wrapper">
+    <form id="form">
+      <ol class="fields">
+        <li class="field">
+          <div class="label">
+            <label for="input-first-name">First Name: </label>
+          </div>
+          <div class="details">
+            <input type="text" class="required validate-email" id="input-first-name" />
+          </div>
+        </li>
+        <li class="field">
+          <div class="label">
+            <label for="input-last-name">Last Name: </label>
+          </div>
+          <div class="details">
+            <input type="text" class="required" id="input-last-name" />
+          </div>
+        </li>
+        <li class="field">
+          <div class="label">
+            <label for="input-age">Age: </label>
+          </div>
+          <div class="details">
+            <input type="text" class="required" id="input-age" />
+          </div>
+        </li>
+      </ol>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <nav class="actions">
+        <input type="submit" />
+      </nav>
+    </form>
+  </div>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/mootools/1.4.3/mootools-yui-compressed.js"></script>
+<script type="text/javascript" src="../Assets/MooTools-more.js"></script>
+<script type="text/javascript" src="../../Source/Formular.js"></script>
+<script type="text/javascript">
+window.addEvent('domready',function() {
+
+  var form = $('form');
+
+  new Formular(form,{
+    'onSuccess' : function() {
+    },
+    'onFailure' : function() {
+    },
+    'onSubmit' : function() {
+    }
+  });
+
+});
+</script>
+</body>
+</html> 

@@ -1,0 +1,20 @@
+.error-box {
+  background:rgb(150,0,0);
+  color:white;
+  border-radius:5px;
+  box-shadow:0 0 8px #999;
+  position:relative;
+}
+
+.error-box .arrow {
+  border-width:5px;
+  border-style:solid;
+  position:absolute;
+  bottom:-10px;
+  left:20px;
+  border-color:rgb(150,0,0) transparent transparent;
+}
+
+.error-box .txt {
+  padding:5px;
+}
