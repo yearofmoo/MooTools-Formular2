@@ -15,6 +15,13 @@
   border-color:rgb(150,0,0) transparent transparent;
 }
 
-.error-box .txt {
+.error-box .txt,
+.error-box .title {
   padding:5px;
+}
+
+.error-box .title {
+  color:#999;
+  font-weight:bold;
+  padding-bottom:0;
 }

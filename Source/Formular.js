@@ -14,6 +14,8 @@ var Formular = new Class({
 
     submitFormOnSuccess : true,
 
+    errorMessageZIndex : 1000,
+
     errorMessageClassName : 'error-box',
     errorMessageSelector : '.error-box',
 
@@ -22,6 +24,7 @@ var Formular = new Class({
 
     closeClassName : 'formular-close',
 
+    errorMessageTitle : 'There was an error:',
     errorMessageTextSeparator : '<br />',
 
     oneValidatorPerMessage : false,
@@ -43,6 +46,7 @@ var Formular = new Class({
     evaluateFieldsOnChange : true,
 
     allowClose : true,
+    closeErrorOnEscapeKey : true,
 
     errorMessageOpacity : 0.8,
 
@@ -57,7 +61,9 @@ var Formular = new Class({
     },
 
     //these options are more for interal stuff
-    fieldErrorMessageStorageKey : 'formular:error-message',
+    fieldErrorMessageStorageKey : 'Formular:error-message',
+    specialEventsStorageKey : 'Formular:Events',
+    fieldProxyStorageKey : 'Formular:proxy-element',
     errorMessageVisibilityKey : 'visible'
   },
 
@@ -251,6 +257,19 @@ var Formular = new Class({
     return this.getForm().getElements(this.options.buttonsSelector);
   },
 
+  setSpecialFieldEvents : function(field) {
+    var key = this.options.specialMethodsStorageKey;
+    if(!field.retrieve(key)) {
+      var that = this;
+      field.addEvent('keydown',function(event) {
+        if(event.key == 'esc') {
+          that.hideError(this);
+        }
+      });
+      field.store(key,true);
+    }
+  },
+
   showError : function(field,text) {
     var message = this.getOrCreateErrorMessage(field);
     message.show();
@@ -265,6 +284,7 @@ var Formular = new Class({
       'top':[y-5,y],
       'opacity':this.options.errorMessageOpacity || 1
     }).chain(function() {
+      this.setSpecialFieldEvents(field);
       this.onShowErrorMessage(message);
     }.bind(this));
   },
@@ -297,7 +317,7 @@ var Formular = new Class({
   },
 
   getFieldProxyElement : function(field) {
-    return field.retrieve('formular:proxy-element',field);
+    return field.retrieve(this.fieldProxyStorageKey,field);
   },
 
   positionErrorMessageRelativeToField : function(field,message) {
@@ -327,7 +347,7 @@ var Formular = new Class({
                    '</tr>'+
                    '<tr>'+
                    '<td class="l x"></td>'+
-                   '<td class="c">'+close+'<div class="txt"></div></td>'+
+                   '<td class="c">'+close+'<div class="title"></div><div class="txt"></div></td>'+
                    '<td class="r x"></td>'+
                    '</tr>'+
                    '<tr>'+
@@ -359,13 +379,17 @@ var Formular = new Class({
       'styles' : {
         'position':'absolute',
         'top':-9999,
-        'left':-9999
+        'left':-9999,
+        'z-index':this.options.errorMessageZIndex
       }
     }).inject(document.body);
+
+    elm.getElement('.title').set('html',this.options.errorMessageTitle);
 
     elm.setText = function(text) {
       $(this).getElement('.txt').set('html',text);
     };
+
     elm.getText = function() {
       $(this).getElement('.txt').get('html');
     }
