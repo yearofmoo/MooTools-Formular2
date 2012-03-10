@@ -54,6 +54,7 @@ form ol {
 </head> 
 
 <body id="" class=""> 
+  <a href="#" id="dest">Destroy</a>
   <div id="wrapper">
     <form id="form">
       <ol class="fields">
@@ -119,13 +120,18 @@ window.addEvent('domready',function() {
 
   var form = $('form');
 
-  new Formular(form,{
+  var formular = new Formular(form,{
     'onSuccess' : function() {
     },
     'onFailure' : function() {
     },
     'onSubmit' : function() {
     }
+  });
+
+  $('dest').addEvent('click',function(event) {
+    event.stop();
+    formular.destroy();
   });
 
 });

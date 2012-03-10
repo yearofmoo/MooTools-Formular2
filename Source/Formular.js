@@ -549,17 +549,12 @@ var Formular = new Class({
     delete this.getFormValidator();
   },
 
-  stop : function() {
-    this.getForm().stop();
-  },
-
   cancel : function() {
     this.stop();
     this.reset();
   },
 
   destroy : function() {
-    this.stop();
     this.revert();
     this.getForm().destroy();
   }
