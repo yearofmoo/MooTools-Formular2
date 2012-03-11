@@ -550,7 +550,6 @@ var Formular = new Class({
   },
 
   cancel : function() {
-    this.stop();
     this.reset();
   },
 
