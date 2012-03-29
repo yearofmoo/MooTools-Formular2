@@ -9,7 +9,7 @@ Scour.Global.defineRole('Formular',{
   },
 
   onLoad : function(element,params) {
-    var options = params.getAsJSON();
+    var options = params.getObject();
     this.formular = new Formular(element,options);
   },
 
@@ -18,8 +18,8 @@ Scour.Global.defineRole('Formular',{
     delete this.formular;
   },
 
-  onUnLoad : function() {
-    this.formular.destroy();
+  onUnLoad : function(element) {
+    this.onCleanup(element);
   }
 
 });
