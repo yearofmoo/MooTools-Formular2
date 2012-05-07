@@ -63,7 +63,7 @@ var Formular = new Class({
     //these options are more for interal stuff
     fieldErrorMessageStorageKey : 'Formular:error-message',
     specialEventsStorageKey : 'Formular:Events',
-    fieldProxyStorageKey : 'Formular:proxy-element',
+    fieldProxyStorageKey : 'Formular-element-proxy',
     errorMessageVisibilityKey : 'visible'
   },
 
@@ -317,7 +317,7 @@ var Formular = new Class({
   },
 
   getFieldProxyElement : function(field) {
-    return field.retrieve(this.fieldProxyStorageKey,field);
+    return field.retrieve(this.options.fieldProxyStorageKey,field);
   },
 
   positionErrorMessageRelativeToField : function(field,message) {
@@ -361,14 +361,17 @@ var Formular = new Class({
 
   setupErrorMessageEvents : function(message) {
     if(this.options.allowClose) {
+      var that = this;
       var closeElement = message.getElement('.'+this.options.closeClassName);
       message.addEvent('click',function(event) {
         event.stop();
-        var box = $(this).getParent(this.options.errorMessageSelector);
+        var klass = that.options.errorMessageClassName;
+        var box = this;
+        box = box.hasClass(klass) ? box : document.id(this).getParent('.'+klass);
         if(box) {
-          this.hideMessage(box);
+          that.hideErrorMessage(box);
         }
-      }.bind(this));
+      });
     }
   },
 
