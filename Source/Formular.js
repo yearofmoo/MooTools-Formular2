@@ -41,6 +41,9 @@ var Formular = new Class({
     disabledFieldClassName : 'disabled',
     disableFieldsOnSubmit : true,
 
+    disabledButtonClassName : 'disabled',
+    disableButtonsOnSubmit : true,
+
     evaluateOnSubmit : true,
     evaluateFieldsOnBlur : true,
     evaluateFieldsOnChange : true,
@@ -119,6 +122,9 @@ var Formular = new Class({
         this.onBeforeSubmit(event);
         if(this.options.disableFieldsOnSubmit) {
           this.disableFields();
+        }
+        if(this.options.disableButtonsOnSubmit) {
+          this.disableButtons();
         }
         this.onSubmit(event);
       }
@@ -235,6 +241,34 @@ var Formular = new Class({
 
   isFieldDisabled : function(field) {
     return this.isFieldEnabled(field);
+  },
+
+  disableButtons : function(buttons) {
+    (buttons || this.getButtons()).each(this.disableButton,this);
+  },
+
+  disableButton : function(button) {
+    button.disabled = true;
+    button.addClass(this.options.disabledButtonClassName);
+  },
+
+  enableButtons : function(buttons) {
+    (buttons || this.getButtons()).each(this.enableButton,this);
+  },
+
+  enableButton : function(button) {
+    button.disabled = false;
+    button.removeClass(this.options.disabledButtonClassName);
+  },
+
+  enable : function() {
+    this.enableFields();
+    this.enableButtons();
+  },
+
+  disable : function() {
+    this.disableFields();
+    this.disableButtons();
   },
 
   submit : function() {
