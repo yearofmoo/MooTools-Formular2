@@ -409,6 +409,14 @@ var Formular = new Class({
     }
   },
 
+  setErrorMessageZIndex : function(index) {
+    this.options.errorMessageZIndex = index;
+  },
+
+  getErrorMessageZIndex : function() {
+    return this.options.errorMessageZIndex
+  },
+
   createErrorMessage : function() {
     var elm = new Element('div',{
       'class' : this.options.errorMessageClassName,
@@ -417,7 +425,7 @@ var Formular = new Class({
         'position':'absolute',
         'top':-9999,
         'left':-9999,
-        'z-index':this.options.errorMessageZIndex
+        'z-index':this.getErrorMessageZIndex()
       }
     }).inject(document.body);
 
