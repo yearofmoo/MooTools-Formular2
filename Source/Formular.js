@@ -36,7 +36,7 @@ var Formular = new Class({
 
     fieldsSelector : '.required',
     buttonsSelector : 'input[type="button"], input[type="submit"]',
-    allFieldsSelector : 'input.text',
+    allFieldsSelector : 'input,select,textarea',
 
     disabledFieldClassName : 'disabled',
     disableFieldsOnSubmit : true,
