@@ -212,12 +212,12 @@ var Formular = new Class({
   },
 
   enableFields : function(fields) {
-    fields = fields || this.getFields();
+    fields = fields || this.getAllFields();
     fields.each(this.enableField);
   },
 
   disableFields : function(fields) {
-    fields = fields || this.getFields();
+    fields = fields || this.getAllFields();
     fields.each(this.disableField);
   },
 
