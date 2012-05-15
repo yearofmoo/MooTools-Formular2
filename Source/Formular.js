@@ -116,9 +116,6 @@ var Formular = new Class({
 
     this.getForm().addEvent('submit',function(event) {
       if(this.isValid()) {
-        if(this.options.submitFormOnSuccess) {
-          event.stop();
-        }
         this.onBeforeSubmit(event);
         if(this.options.disableFieldsOnSubmit) {
           this.disableFields();
@@ -127,6 +124,11 @@ var Formular = new Class({
           this.disableButtons();
         }
         this.onSubmit(event);
+      }
+      else {
+        if(this.options.submitFormOnSuccess) {
+          event.stop();
+        }
       }
     }.bind(this));
 
