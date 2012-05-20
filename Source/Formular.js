@@ -315,7 +315,7 @@ var Formular = new Class({
 
     message.store(this.options.errorMessageVisibilityKey,true);
     var y = message.getPosition().y;
-    message.setOpacity(0);
+    message.setStyle('opacity',0);
     message.get('morph').start({
       'top':[y-5,y],
       'opacity':this.options.errorMessageOpacity || 1
