@@ -586,6 +586,7 @@ var Formular = new Class({
 
   reset : function() {
     this.enableFields();
+    this.enableButtons();
     this.destroyAllErrorMessages();
   },
 
