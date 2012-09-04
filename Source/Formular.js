@@ -485,6 +485,7 @@ var Formular = new Class({
 
   onElementValid : function(field) {
     field.removeClass(this.options.invalidFieldClassName).addClass(this.options.validFieldClassName);
+    this.fireEvent('validField', field);
     this.hideError(field);
   },
 
@@ -506,6 +507,8 @@ var Formular = new Class({
       var messageText = this.createErrorMessageTextFromValidators(failedValidators);
       this.showError(field,messageText);
     }
+
+    this.fireEvent('inValidField', field);
   },
 
   getScroller : function() {
