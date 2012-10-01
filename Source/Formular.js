@@ -65,6 +65,7 @@ var Formular = new Class({
 
     //these options are more for interal stuff
     fieldErrorMessageStorageKey : 'Formular:error-message',
+    customFieldErrorMessageStorageKey : 'Formular:error-message',
     specialEventsStorageKey : 'Formular:Events',
     fieldProxyStorageKey : 'Formular-element-proxy',
     errorMessageVisibilityKey : 'visible'
@@ -308,21 +309,26 @@ var Formular = new Class({
 
   showError : function(field,text) {
     var message = this.getOrCreateErrorMessage(field);
+
     message.show();
-
     message.setText(text);
-    this.positionErrorMessageRelativeToField(field,message);
-
     message.store(this.options.errorMessageVisibilityKey,true);
-    var y = message.getPosition().y;
-    message.setStyle('opacity',0);
-    message.get('morph').start({
-      'top':[y-5,y],
-      'opacity':this.options.errorMessageOpacity || 1
-    }).chain(function() {
-      this.setSpecialFieldEvents(field);
-      this.onShowErrorMessage(message);
-    }.bind(this));
+
+    var isCustom = message.retrieve(this.options.customFieldErrorMessageStorageKey);
+    if(isCustom) {
+    }
+    else {
+      this.positionErrorMessageRelativeToField(field,message);
+      var y = message.getPosition().y;
+      message.setStyle('opacity',0);
+      message.get('morph').start({
+        'top':[y-5,y],
+        'opacity':this.options.errorMessageOpacity || 1
+      }).chain(function() {
+        this.setSpecialFieldEvents(field);
+        this.onShowErrorMessage(message);
+      }.bind(this));
+    }
   },
 
   hideError : function(field) {
@@ -337,9 +343,19 @@ var Formular = new Class({
     message.get('morph').start({
       'opacity':0
     }).chain(function() {
-      message.hide();
-      this.onHideErrorMessage(message);
+      this.hideErrorMessageElement(message);
     }.bind(this));
+  },
+
+  hideErrorMessageElement : function(element) {
+    element.hide();
+    this.onHideErrorMessage(element);
+  },
+
+  hideAllErrorMessages : function() {
+    var klass = this.options.errorMessageClassName;
+    var messages = this.getForm().getElements('.' + klass);
+    messages.each(this.hideErrorMessageElement, this);
   },
 
   positionErrorMessage : function(message,x,y) {
@@ -565,6 +581,24 @@ var Formular = new Class({
     return this.errorMessages;
   },
 
+  setupCustomErrorMessageDisplayElement : function(field, element) {
+    element.store(this.options.customFieldErrorMessageStorageKey, true);
+
+    if(!element.setText) {
+      element.setText = function(text) {
+        element.set('html', text);
+      };
+    }
+
+    if(!element.getText) {
+      element.getText = function(text) {
+        return element.get('html');
+      };
+    }
+
+    field.store(this.options.fieldErrorMessageStorageKey, element);
+  },
+
   getErrorMessage : function(field) {
     return field.retrieve(this.options.fieldErrorMessageStorageKey);
   },
@@ -610,3 +644,4 @@ var Formular = new Class({
   }
 
 });
+
