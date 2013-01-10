@@ -93,7 +93,7 @@ var Formular = new Class({
   },
 
   initialize : function(form,options) {
-    this.form = $(form);
+    this.form = document.id(form);
     this.bufferSubmitEvents();
     this.valid = false;
     this.errorMessages = [];
@@ -471,11 +471,11 @@ var Formular = new Class({
     elm.getElement('.title').set('html',this.options.errorMessageTitle);
 
     elm.setText = function(text) {
-      $(this).getElement('.txt').set('html',text);
+      document.id(this).getElement('.txt').set('html',text);
     };
 
     elm.getText = function() {
-      $(this).getElement('.txt').get('html');
+      document.id(this).getElement('.txt').get('html');
     }
 
     this.setupErrorMessageEvents(elm);
@@ -665,4 +665,3 @@ var Formular = new Class({
   }
 
 });
-
